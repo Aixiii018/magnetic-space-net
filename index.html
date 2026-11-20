@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Magnetic Space Net — A Next-Generation Solution for Space Debris</title>
+<style>
+  :root{
+    --bg:#f7f6f3;
+    --card:#ffffff;
+    --ink:#1c2026;
+    --body:#404650;
+    --muted:#7a828e;
+    --slate:#2d3e54;
+    --line:#d6d8dc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--body);
+    font-family:Arial, Helvetica, "Segoe UI", sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  header.hero{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px}
+  h1{font-size:40px;color:var(--ink);font-weight:800;letter-spacing:-0.5px;margin-bottom:14px}
+  .subtitle{font-size:20px;color:var(--body);margin-bottom:22px}
+  .intro{font-size:16px;max-width:720px}
+  section{padding:44px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:26px;color:var(--ink);font-weight:700;margin-bottom:8px}
+  .section-note{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .grid.two{grid-template-columns:repeat(2,1fr)}
+  nav.topbar{position:sticky;top:0;z-index:20;background:rgba(247,246,243,0.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .topbar-inner{max-width:960px;margin:0 auto;padding:10px 24px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .topbar .brand{font-weight:700;color:var(--ink);font-size:14px;margin-right:auto}
+  .topbar a{font-size:13px;color:var(--body);text-decoration:none;padding:4px 2px;border-bottom:2px solid transparent}
+  .topbar a:hover{color:var(--slate);border-bottom-color:var(--slate)}
+  section{scroll-margin-top:60px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .card h3{font-size:17px;color:var(--ink);margin-bottom:8px}
+  .card p{font-size:14px}
+  .card.expandable{cursor:pointer}
+  .card .detail{display:none;margin-top:10px;font-size:14px}
+  .card.expandable.open .detail{display:block}
+  .card .toggle{margin-top:10px;font-size:13px;color:var(--slate);background:none;border:none;cursor:pointer;padding:0}
+  .card .toggle:hover{text-decoration:underline}
+  .stat{font-size:15px}
+  .stat strong{color:var(--slate)}
+  ol.steps{list-style:none;counter-reset:step;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  ol.steps li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;counter-increment:step}
+  ol.steps li::before{content:counter(step,decimal-leading-zero);display:block;font-size:18px;font-weight:700;color:var(--slate);margin-bottom:8px}
+  ol.steps li h3{font-size:16px;color:var(--ink);margin-bottom:6px}
+  ol.steps li p{font-size:14px}
+  .metric{margin-top:20px;padding:16px 20px;background:var(--card);border-left:3px solid var(--slate);border-radius:0 10px 10px 0;font-size:15px}
+  .source-line{font-size:12px;color:var(--muted);margin-top:18px}
+  /* Demo section */
+  .demo{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px}
+  .demo-controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:14px 0}
+  .demo button{padding:8px 16px;font-size:14px;cursor:pointer;border:1px solid var(--slate);background:var(--slate);color:#fff;border-radius:6px}
+  .demo label{font-size:14px}
+  .demo input[type=range]{width:160px}
+  .demo canvas{background:#02040c;border:1px solid #22324a;border-radius:8px;max-width:100%;display:block}
+  .demo .stats{font-size:14px;margin-top:10px;color:var(--body)}
+  .demo .disclaimer{font-size:12px;color:var(--muted);margin-top:10px;max-width:720px}
+  blockquote{font-size:22px;color:var(--ink);font-style:italic;margin:20px 0}
+  .refs{list-style:none;display:grid;gap:16px}
+  .refs li{font-size:14px}
+  .refs .num{color:var(--slate);font-weight:700;margin-right:8px}
+  .refs .sub{color:var(--muted);font-size:13px}
+  .member-list{display:flex;flex-wrap:wrap;gap:12px}
+  .member{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:15px;color:var(--ink)}
+  .contact-box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .contact-box a{color:var(--slate);text-decoration:none;font-weight:600}
+  .contact-box a:hover{text-decoration:underline}
+  footer{padding:32px 0 56px;font-size:12px;color:var(--muted)}
+  @media (max-width:760px){
+    .grid,.grid.two,ol.steps{grid-template-columns:1fr}
+    h1{font-size:30px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <span class="brand">Magnetic Space Net</span>
+    <a href="#problem">Problem</a>
+    <a href="#how">Process</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#risks">Risks</a>
+    <a href="#plan">Plan</a>
+    <a href="#demo">Demo</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#sources">Sources</a>
+    <a href="#team">Team</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Space Debris Removal Concept</div>
+    <h1>The Magnetic Space Net</h1>
+    <p class="subtitle">A Next-Generation Solution for Space Debris</p>
+    <p class="intro">This project proposes a servicer spacecraft that deploys a flexible net fitted with electromagnets to capture metal orbital debris, then drags the bundle back into the atmosphere to burn up. Below is the background problem, how the concept works, its benefits and risks, and a staged plan to test it. The animation at the bottom is a simple decorative illustration, not a physics model.</p>
+  </div>
+</header>
+
+<section id="problem">
+  <div class="wrap">
+    <h2>The Problem</h2>
+    <p class="section-note">Why orbital debris has become a growing threat.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>The Threat — Kessler Syndrome</h3>
+        <p>Once debris reaches a critical density, collisions trigger a chain reaction that keeps multiplying fragments.</p>
+      </div>
+      <div class="card">
+        <h3>The Scale</h3>
+        <p class="stat">About <strong>47,000</strong> objects are tracked from the ground; roughly <strong>68,000</strong> objects are estimated to be larger than <strong>10 cm</strong>.</p>
+      </div>
+      <div class="card">
+        <h3>The Cost</h3>
+        <p>An <strong>€102 million</strong> ESA contract funds removing just one target — the ClearSpace-1 / OHB mission, 2026.</p>
+      </div>
+    </div>
+    <p class="source-line">Source: ESA Space Environment Statistics (2026); OHB–ESA ClearSpace-1 debris removal contract.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How the Innovation Works</h2>
+    <p class="section-note">A four-step capture sequence, based on the real RemoveDEBRIS net demonstration.</p>
+    <ol class="steps">
+      <li>
+        <h3>Deploy the Flexible Net</h3>
+        <p>The servicer unfurls a lightweight net ahead of the target.</p>
+      </li>
+      <li>
+        <h3>Electromagnets Activate</h3>
+        <p>Magnetic coils along the net edges switch on.</p>
+      </li>
+      <li>
+        <h3>Attract Metal Debris</h3>
+        <p>The field draws conductive fragments onto the net.</p>
+      </li>
+      <li>
+        <h3>Drag to the Atmosphere</h3>
+        <p>The bundle is lowered and burns up on re-entry.</p>
+      </li>
+    </ol>
+    <p class="source-line">Reference: RemoveDEBRIS net demonstration, Surrey Space Centre / ESA.</p>
+  </div>
+</section>
+
+<section id="benefits">
+  <div class="wrap">
+    <h2>Benefits and Potential Impact</h2>
+    <div class="grid">
+      <div class="card expandable">
+        <h3>Cost-Effective</h3>
+        <p>A reusable net and magnetic capture can lower the cost of removing each target.</p>
+        <p class="detail">Because the net and magnets can be reused across several passes, a single servicer does not need a brand-new capture system for every target, which keeps future removal missions cheaper.</p>
+        <button class="toggle" type="button">Show more</button>
+      </div>
+      <div class="card expandable">
+        <h3>Scalable</h3>
+        <p>One servicer can collect several pieces of debris during a single mission.</p>
+        <p class="detail">The same servicer can approach one fragment after another in the same orbital band, so a mission can remove more than a single piece before returning to dispose of the collected bundle.</p>
+        <button class="toggle" type="button">Show more</button>
+      </div>
+      <div class="card expandable">
+        <h3>Flexible</h3>
+        <p>Magnetic capture adapts to irregular shapes and slowly tumbling objects.</p>
+        <p class="detail">Many real fragments are broken panels, bent tanks or tumbling scraps with no clean docking point. A net and magnetic field can grip them without a precise mechanical grapple.</p>
+        <button class="toggle" type="button">Show more</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="wrap">
+    <h2>Limitations, Risks and Concerns</h2>
+    <div class="grid">
+      <div class="card expandable">
+        <h3>Kinetic Energy</h3>
+        <p>At orbital speed, a high-speed impact could tear or puncture the net before it closes.</p>
+        <p class="detail">At orbital speed even a small piece carries large kinetic energy; if it strikes the net before the magnets lock on, the mesh could tear and the captured load could escape.</p>
+        <button class="toggle" type="button">Show more</button>
+      </div>
+      <div class="card expandable">
+        <h3>Power Limits</h3>
+        <p>Strong electromagnets demand a large, sustained on-board power supply and thermal control.</p>
+        <p class="detail">Electromagnets strong enough to hold metal at a distance draw steady current, and that power must come from solar panels or batteries, with extra heat that the spacecraft must shed.</p>
+        <button class="toggle" type="button">Show more</button>
+      </div>
+      <div class="card expandable">
+        <h3>Testing Limits</h3>
+        <p>Vacuum, orbital speed and uncontrolled tumbling cannot be fully reproduced on the ground.</p>
+        <p class="detail">Ground chambers can reproduce vacuum and some tumbling, but they cannot reproduce full orbital speed, long-duration operation or the exact space environment, so some risks only appear in flight.</p>
+        <button class="toggle" type="button">Show more</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="wrap">
+    <h2>Feasibility and Implementation Plan</h2>
+    <p class="section-note">A three-step path from laboratory to orbit.</p>
+    <div class="grid three">
+      <div class="card">
+        <h3>Step 1 · Ground Prototype</h3>
+        <p>Vacuum chamber test — build a ground prototype and prove magnetic capture in a vacuum chamber.</p>
+      </div>
+      <div class="card">
+        <h3>Step 2 · Low-Orbit Test</h3>
+        <p>Small target in orbit — fly a test platform to capture one piece of debris weighing under 5 kg.</p>
+      </div>
+      <div class="card">
+        <h3>Step 3 · Multi-Target Mission</h3>
+        <p>Several objects per flight — scale up to an operational craft that collects multiple targets each flight.</p>
+      </div>
+    </div>
+    <div class="metric"><strong>Success metric:</strong> capture a target without creating any new debris in the process.</div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <h2>Interactive Demo</h2>
+    <p class="section-note">A secondary, decorative illustration of the capture idea.</p>
+    <div class="demo">
+      <div class="demo-controls">
+        <button id="toggleBtn">Turn Magnetic Field On</button>
+        <label>Field strength
+          <input type="range" id="strength" min="0.5" max="2" step="0.1" value="1">
+        </label>
+        <button id="restartBtn">Restart Debris</button>
+      </div>
+      <canvas id="simCanvas" width="720" height="360"></canvas>
+      <div class="stats">Debris: <span id="totalCount">0</span> &nbsp;|&nbsp; Captured: <span id="capturedCount">0</span></div>
+      <p class="disclaimer">Simplified 2D illustration only. Real orbital debris travels at several kilometers per second in 3D, and magnetic capture only works on conductive or ferromagnetic fragments. This animation does not model real orbital mechanics or debris-to-debris collisions.</p>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion">
+  <div class="wrap">
+    <h2>Conclusion and Recommendation</h2>
+    <p><strong>Recommendation:</strong> begin by targeting small debris first.</p>
+    <p style="margin-top:8px"><strong>Next action:</strong> secure shared international funding and orbital treaties.</p>
+    <blockquote>"Space has no borders, but space debris affects us all."</blockquote>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <h2>Sources and References</h2>
+    <ul class="refs">
+      <li><span class="num">1.</span>European Space Agency (ESA). <em>Space Environment Statistics.</em> Retrieved 2026.<br><span class="sub">sdup.esoc.esa.int</span></li>
+      <li><span class="num">2.</span>Aviation Week / OHB. <em>"OHB To Lead ESA Space Debris Removal Mission"</em><br><span class="sub">ClearSpace-1 mission cost and contract data, 2026.</span></li>
+      <li><span class="num">3.</span>International Astronautical Federation; Surrey Space Centre. <em>"RemoveDEBRIS, mission accomplished"</em><br><span class="sub">In-orbit net capture technology validation.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <h2>Group Members</h2>
+    <div class="member-list">
+      <span class="member">Aix</span>
+      <span class="member">Vincent</span>
+      <span class="member">Hadden</span>
+      <span class="member">Catherine</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <div class="contact-box">
+      <p>Questions about this project? Email the team at <a href="mailto:spacenet1120@gmail.com">spacenet1120@gmail.com</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Primary sources reviewed November 2026. This page may remain on screen during the Q&amp;A.</div>
+</footer>
+
+<script>
+/* Expandable benefit / risk cards */
+(function(){
+  document.querySelectorAll('.card.expandable').forEach(card => {
+    const btn = card.querySelector('.toggle');
+    function toggle(){
+      card.classList.toggle('open');
+      btn.textContent = card.classList.contains('open') ? 'Show less' : 'Show more';
+    }
+    card.addEventListener('click', toggle);
+    btn.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+  });
+})();
+
+(function(){
+  const canvas = document.getElementById("simCanvas");
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+
+  const net = { x: W / 2, y: H / 2, r: 24 };
+  const FIELD_RANGE = 155;
+
+  let debris = [];
+  let stars = [];
+  let magneticOn = false;
+  let strength = 1;
+
+  const toggleBtn = document.getElementById("toggleBtn");
+  const strengthInput = document.getElementById("strength");
+  const restartBtn = document.getElementById("restartBtn");
+  const capturedCountEl = document.getElementById("capturedCount");
+  const totalCountEl = document.getElementById("totalCount");
+
+  function makeStars(){
+    stars = [];
+    for(let i=0;i<90;i++){
+      stars.push({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.1+0.3, a:Math.random()*0.6+0.2 });
+    }
+  }
+
+  function makeDebris(){
+    debris = [];
+    for(let i=0;i<22;i++){
+      let x,y,d;
+      do{
+        x = Math.random()*W;
+        y = Math.random()*H;
+        d = Math.hypot(x-net.x, y-net.y);
+      }while(d < 80);
+      const speed = 0.3 + Math.random()*0.7;
+      const angle = Math.random()*Math.PI*2;
+      debris.push({
+        x, y,
+        vx: Math.cos(angle)*speed,
+        vy: Math.sin(angle)*speed,
+        r: 1.5 + Math.random()*2.5,
+        caught: false,
+        dockAngle: 0,
+        dockDist: 0,
+        shade: Math.random()
+      });
+    }
+    capturedCountEl.textContent = "0";
+    totalCountEl.textContent = debris.length;
+  }
+
+  toggleBtn.onclick = () => {
+    magneticOn = !magneticOn;
+    toggleBtn.innerText = magneticOn ? "Turn Magnetic Field Off" : "Turn Magnetic Field On";
+  };
+  strengthInput.oninput = (e) => { strength = parseFloat(e.target.value); };
+  restartBtn.onclick = makeDebris;
+
+  function update(){
+    let captured = 0;
+    debris.forEach(d => {
+      if(d.caught){
+        d.x = net.x + Math.cos(d.dockAngle)*d.dockDist;
+        d.y = net.y + Math.sin(d.dockAngle)*d.dockDist;
+        captured++;
+        return;
+      }
+      const dx = net.x - d.x;
+      const dy = net.y - d.y;
+      const dist = Math.hypot(dx,dy) || 1;
+      if(magneticOn && dist < FIELD_RANGE){
+        const falloff = 1/(dist/55+0.5);
+        const pull = 0.05*strength*falloff;
+        d.vx += (dx/dist)*pull;
+        d.vy += (dy/dist)*pull;
+        d.vx *= 0.995;
+        d.vy *= 0.995;
+      }
+      d.x += d.vx;
+      d.y += d.vy;
+      if(d.x<-10) d.x = W+10;
+      if(d.x>W+10) d.x = -10;
+      if(d.y<-10) d.y = H+10;
+      if(d.y>H+10) d.y = -10;
+      if(magneticOn && dist < net.r + d.r + 4){
+        d.caught = true;
+        d.dockAngle = Math.atan2(dy,dx);
+        d.dockDist = net.r + 6 + Math.random()*15;
+      }
+    });
+    capturedCountEl.textContent = captured;
+  }
+
+  function drawNet(){
+    ctx.beginPath();
+    ctx.arc(net.x, net.y, FIELD_RANGE, 0, Math.PI*2);
+    ctx.strokeStyle = magneticOn ? "rgba(0,204,255,0.35)" : "rgba(60,90,130,0.18)";
+    ctx.setLineDash([8,8]);
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    for(let i=0;i<6;i++){
+      const a = (Math.PI*2*i)/6;
+      ctx.beginPath();
+      ctx.moveTo(net.x, net.y);
+      ctx.lineTo(net.x+Math.cos(a)*(net.r+13), net.y+Math.sin(a)*(net.r+13));
+      ctx.strokeStyle = "rgba(150,190,230,0.6)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(net.x, net.y, net.r+13, 0, Math.PI*2);
+    ctx.strokeStyle = "rgba(180,210,240,0.8)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(net.x, net.y, net.r, 0, Math.PI*2);
+    ctx.fillStyle = "#cfe0f2";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(net.x, net.y, net.r*0.5, 0, Math.PI*2);
+    ctx.fillStyle = "#3b5a80";
+    ctx.fill();
+  }
+
+  function drawDebris(){
+    debris.forEach(d => {
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+      if(d.caught){ ctx.fillStyle = "#ffd27a"; }
+      else{
+        const g = 120 + Math.floor(d.shade*80);
+        ctx.fillStyle = `rgb(${g},${g+20},${g+40})`;
+      }
+      ctx.fill();
+    });
+  }
+
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s => {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+      ctx.fill();
+    });
+    update();
+    drawNet();
+    drawDebris();
+    requestAnimationFrame(loop);
+  }
+
+  makeStars();
+  makeDebris();
+  loop();
+})();
+</script>
+</body>
+</html>
